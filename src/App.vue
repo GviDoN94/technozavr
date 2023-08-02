@@ -10,6 +10,7 @@
         :price-from.sync="filterPriceFrom"
         :price-to.sync="filterPriceTo"
         :category-id.sync="filterCategoryId"
+        :color-id.sync="filterColorId"
       />
       <section class="catalog">
         <ProductList :products="products" />
@@ -37,6 +38,7 @@ export default {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
+      filterColorId: 0,
       page: 1,
       productsPerPage: 3,
     };
@@ -60,6 +62,12 @@ export default {
       if (this.filterCategoryId) {
         filteredProducts = filteredProducts.filter(
           (product) => product.categoryId === this.filterCategoryId
+        );
+      }
+
+      if (this.filterColorId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.colorId === this.filterColorId
         );
       }
 
