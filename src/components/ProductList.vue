@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <ul class="catalog__list" v-if="products.length">
-      <ProductItem
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-      />
-    </ul>
-    <div v-else>Нет подходящих товаров...</div>
-  </div>
+  <ul class="catalog__list" v-if="products.length">
+    <ProductItem
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+      @goToPage="
+        (pageName, pageParams) => $emit('goToPage', pageName, pageParams)
+      "
+    />
+  </ul>
+  <div v-else>Нет подходящих товаров...</div>
 </template>
 
 <script>
