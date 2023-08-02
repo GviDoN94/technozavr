@@ -37,7 +37,7 @@
             class="form__select"
             type="text"
             name="category"
-            v-model.number="curremtCategoryId"
+            v-model.number="currentCategoryId"
           >
             <option value="0">Все категории</option>
             <option
@@ -229,7 +229,11 @@
       <button class="filter__submit button button--primery" type="submit">
         Применить
       </button>
-      <button class="filter__reset button button--second" type="button">
+      <button
+        class="filter__reset button button--second"
+        type="button"
+        @click="reset"
+      >
         Сбросить
       </button>
     </form>
@@ -243,7 +247,7 @@ export default {
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
-      curremtCategoryId: 0,
+      currentCategoryId: 0,
     };
   },
   props: ["priceFrom", "priceTo", "categoryId"],
@@ -252,11 +256,27 @@ export default {
       return categories;
     },
   },
+  watch: {
+    priceFrom(value) {
+      this.currentPriceFrom = value;
+    },
+    priceTo(value) {
+      this.currentPriceTo = value;
+    },
+    categoryId(value) {
+      this.currentCategoryId = value;
+    },
+  },
   methods: {
     submit() {
       this.$emit("update:priceFrom", this.currentPriceFrom);
       this.$emit("update:priceTo", this.currentPriceTo);
-      this.$emit("update:categoryId", this.curremtCategoryId);
+      this.$emit("update:categoryId", this.currentCategoryId);
+    },
+    reset() {
+      this.$emit("update:priceFrom", 0);
+      this.$emit("update:priceTo", 0);
+      this.$emit("update:categoryId", 0);
     },
   },
 };
