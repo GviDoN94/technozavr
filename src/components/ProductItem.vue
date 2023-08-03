@@ -12,7 +12,7 @@
       <a href="#">{{ product.title }}</a>
     </h3>
 
-    <span class="catalog__price">{{ product.price }} ₽</span>
+    <span class="catalog__price">{{ product.price | numberFormat }} ₽</span>
 
     <ul class="colors colors--black">
       <li class="colors__item">
@@ -54,9 +54,13 @@
 
 <script>
 import goToPage from "@/helpers/goToPage";
+import numberFormat from "@/helpers/numberFormat";
 
 export default {
   props: ["product"],
+  filters: {
+    numberFormat,
+  },
   data() {
     return {
       color: "#73b6ea",
