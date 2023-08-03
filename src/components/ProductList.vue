@@ -4,9 +4,6 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      @goToPage="
-        (pageName, pageParams) => $emit('goToPage', pageName, pageParams)
-      "
     />
   </ul>
   <div v-else>Нет подходящих товаров...</div>
