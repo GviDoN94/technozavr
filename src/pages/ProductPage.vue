@@ -30,65 +30,18 @@
           <img
             width="570"
             height="570"
-            src="img/phone-square.jpg"
-            srcset="img/phone-square@2x.jpg 2x"
-            alt="Название товара"
+            :src="product.image"
+            :alt="product.title"
           />
         </div>
-        <ul class="pics__list">
-          <li class="pics__item">
-            <a href="" class="pics__link pics__link--current">
-              <img
-                width="98"
-                height="98"
-                src="img/phone-square-1.jpg"
-                srcset="img/phone-square-1@2x.jpg 2x"
-                alt="Название товара"
-              />
-            </a>
-          </li>
-          <li class="pics__item">
-            <a href="" class="pics__link">
-              <img
-                width="98"
-                height="98"
-                src="img/phone-square-2.jpg"
-                srcset="img/phone-square-2@2x.jpg 2x"
-                alt="Название товара"
-              />
-            </a>
-          </li>
-          <li class="pics__item">
-            <a href="" class="pics__link">
-              <img
-                width="98"
-                height="98"
-                src="img/phone-square-3.jpg"
-                srcset="img/phone-square-3@2x.jpg 2x"
-                alt="Название товара"
-              />
-            </a>
-          </li>
-          <li class="pics__item">
-            <a class="pics__link" href="#">
-              <img
-                width="98"
-                height="98"
-                src="img/phone-square-4.jpg"
-                srcset="img/phone-square-4@2x.jpg 2x"
-                alt="Название товара"
-              />
-            </a>
-          </li>
-        </ul>
       </div>
 
       <div class="item__info">
-        <span class="item__code">Артикул: 150030</span>
-        <h2 class="item__title">Смартфон Xiaomi Mi Mix 3 6/128GB</h2>
+        <span class="item__code">Артикул: {{ product.id }}</span>
+        <h2 class="item__title">{{ product.title }}</h2>
         <div class="item__form">
           <form class="form" action="#" method="POST">
-            <b class="item__price"> 18 990 ₽ </b>
+            <b class="item__price"> {{ product.price }} ₽ </b>
 
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
