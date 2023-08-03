@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import eventBus from "@/eventBus";
+import goToPage from "@/helpers/goToPage";
 
 export default {
   props: ["product"],
@@ -63,9 +63,7 @@ export default {
     };
   },
   methods: {
-    goToPage(pageName, pageParams) {
-      eventBus.$emit("goToPage", pageName, pageParams);
-    },
+    goToPage,
   },
 };
 </script>
