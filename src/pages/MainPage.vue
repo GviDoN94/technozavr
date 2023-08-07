@@ -13,6 +13,16 @@
         :color-id.sync="filterColorId"
       />
       <section class="catalog">
+        <div v-if="productsLoading">Загрузка товаров...</div>
+        <div v-if="productsLoadingFailed">
+          Произошла ошибка при загрузке товаров
+          <button @click="loadProducts">Попробовать еще раз</button>
+        </div>
+        <div
+          v-if="!productsLoading && !productsLoadingFailed && !products.length"
+        >
+          Товары не найдены
+        </div>
         <ProductList :products="products" />
         <BasePagination
           v-model="page"
@@ -42,6 +52,8 @@ export default {
       page: 1,
       productsPerPage: 6,
       productsData: null,
+      productsLoading: false,
+      productsLoadingFailed: false,
     };
   },
   computed: {
@@ -61,6 +73,9 @@ export default {
   },
   methods: {
     loadProducts() {
+      this.productsLoadingFailed = false;
+      this.productsLoading = true;
+
       setTimeout(() => {
         clearTimeout(this.loadProductsTimer);
 
@@ -74,7 +89,12 @@ export default {
               maxPrice: this.filterPriceTo,
             },
           })
-          .then((response) => (this.productsData = response.data));
+          .then((response) => (this.productsData = response.data))
+          .catch((error) => {
+            this.productsLoadingFailed = true;
+            console.log(error);
+          })
+          .finally(() => (this.productsLoading = false));
       }, 0);
     },
   },

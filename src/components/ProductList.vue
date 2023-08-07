@@ -6,7 +6,6 @@
       :product="product"
     />
   </ul>
-  <div v-else>Нет подходящих товаров...</div>
 </template>
 
 <script>
