@@ -13,7 +13,7 @@
         :color-id.sync="filterColorId"
       />
       <section class="catalog">
-        <div v-if="productsLoading">Загрузка товаров...</div>
+        <LoadingSpinner v-if="productsLoading" />
         <div v-if="productsLoadingFailed">
           Произошла ошибка при загрузке товаров
           <button @click="loadProducts">Попробовать еще раз</button>
@@ -40,9 +40,10 @@ import BasePagination from "@/components/BasePagination.vue";
 import ProductFilter from "@/components/ProductFilter.vue";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
-  components: { ProductList, BasePagination, ProductFilter },
+  components: { ProductList, BasePagination, ProductFilter, LoadingSpinner },
   data() {
     return {
       filterPriceFrom: 0,
