@@ -26,13 +26,19 @@
       </button>
     </div>
 
-    <button class="button button--primery" type="submit">В корзину</button>
+    <button
+      class="button button--primery"
+      type="submit"
+      :disabled="buttonDisable"
+    >
+      В корзину
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["productAmount"],
+  props: ["productAmount", "buttonDisable"],
   data() {
     return { currentProductAmount: this.productAmount };
   },

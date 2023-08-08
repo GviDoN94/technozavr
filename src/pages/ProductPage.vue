@@ -114,7 +114,12 @@
                 </li>
               </ul>
             </fieldset>
-            <ProductAmount :product-amount.sync="productAmount" />
+            <ProductAmount
+              :product-amount.sync="productAmount"
+              :button-disable="productAddSending"
+            />
+            <div v-show="productAdded">Товар добавлен в корзину</div>
+            <div v-show="productAddSending">Добавляем товар в козину...</div>
           </form>
         </div>
       </div>
@@ -196,6 +201,8 @@ export default {
       productData: null,
       productLoading: false,
       productLoadingFailed: false,
+      productAdded: false,
+      productAddSending: false,
     };
   },
   components: { ProductAmount, LoadingSpinner },
@@ -213,9 +220,15 @@ export default {
   methods: {
     ...mapActions(["addProductToCart"]),
     addToCart() {
+      this.productAdded = false;
+      this.productAddSending = true;
+
       this.addProductToCart({
         productId: this.product.id,
         amount: this.productAmount,
+      }).then(() => {
+        this.productAddSending = false;
+        this.productAdded = true;
       });
     },
     loadProduct() {
