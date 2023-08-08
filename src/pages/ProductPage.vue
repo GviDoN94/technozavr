@@ -187,6 +187,7 @@ import ProductAmount from "@/components/ProductAmount";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -210,8 +211,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["addProductToCart"]),
     addToCart() {
-      this.$store.commit("addProductToCart", {
+      this.addProductToCart({
         productId: this.product.id,
         amount: this.productAmount,
       });
