@@ -1,5 +1,11 @@
 <template>
-  <main class="content container">
+  <main class="content container" v-if="productLoading">
+    <LoadingSpinner />
+  </main>
+  <main class="content container" v-else-if="!productData">
+    Не удалось загрузить товар
+  </main>
+  <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -45,56 +51,31 @@
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
               <ul class="colors">
-                <li class="colors__item">
+                <li
+                  class="colors__item"
+                  v-for="color in product.colors"
+                  :key="color.id"
+                >
                   <label class="colors__label">
                     <input
                       class="colors__radio sr-only"
                       type="radio"
                       name="color-item"
-                      value="blue"
-                      checked=""
+                      :value="color.id"
+                      :checked="color.id === product.colors[0].id"
                     />
                     <span
                       class="colors__value"
-                      style="background-color: #73b6ea"
+                      :style="`background-color: ${color.code}`"
                     >
                     </span>
                   </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input
-                      class="colors__radio sr-only"
-                      type="radio"
-                      name="color-item"
-                      value="yellow"
-                    />
-                    <span
-                      class="colors__value"
-                      style="background-color: #ffbe15"
-                    >
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input
-                      class="colors__radio sr-only"
-                      type="radio"
-                      name="color-item"
-                      value="gray" />
-                    <span
-                      class="colors__value"
-                      style="background-color: #939393"
-                    >
-                    </span
-                  ></label>
                 </li>
               </ul>
             </fieldset>
 
             <fieldset class="form__block">
-              <legend class="form__legend">Объемб в ГБ:</legend>
+              <legend class="form__legend">Объем в ГБ:</legend>
 
               <ul class="sizes sizes--primery">
                 <li class="sizes__item">
@@ -201,29 +182,31 @@
 </template>
 
 <script>
-import products from "@/data/products";
-import categories from "@/data/categories";
 import numberFormat from "@/helpers/numberFormat";
 import ProductAmount from "@/components/ProductAmount";
+import axios from "axios";
+import { API_BASE_URL } from "@/config";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   data() {
     return {
       productAmount: 1,
+      productData: null,
+      productLoading: false,
+      productLoadingFailed: false,
     };
   },
-  components: { ProductAmount },
+  components: { ProductAmount, LoadingSpinner },
   filters: {
     numberFormat,
   },
   computed: {
     product() {
-      return products.find((product) => product.id === +this.$route.params.id);
+      return { ...this.productData, image: this.productData.image.file.url };
     },
     category() {
-      return categories.find(
-        (category) => category.id === this.product.categoryId
-      );
+      return this.productData.category;
     },
   },
   methods: {
@@ -232,6 +215,27 @@ export default {
         productId: this.product.id,
         amount: this.productAmount,
       });
+    },
+    loadProduct() {
+      this.productLoadingFailed = false;
+      this.productLoading = true;
+
+      axios
+        .get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+        .then((response) => (this.productData = response.data))
+        .catch((error) => {
+          this.productLoadingFailed = true;
+          console.log(error);
+        })
+        .finally(() => (this.productLoading = false));
+    },
+  },
+  created() {
+    this.loadProduct();
+  },
+  watch: {
+    "$route.params.id"() {
+      this.loadProduct();
     },
   },
 };
