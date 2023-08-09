@@ -23,7 +23,7 @@
       </ul>
 
       <h1 class="content__title">Корзина</h1>
-      <span class="content__info"> {{ products.length }} товара </span>
+      <span class="content__info"> {{ totalAmount }} товара </span>
     </div>
 
     <section class="cart">
@@ -51,7 +51,7 @@
             :to="{ name: 'order' }"
             class="cart__button button button--primery"
             type="submit"
-            v-if="products.length"
+            v-if="totalAmount"
           >
             Оформить заказ
           </router-link>
@@ -73,6 +73,7 @@ export default {
     ...mapGetters({
       products: "cartDetailProducts",
       totalPrice: "cartTotalPrice",
+      totalAmount: "cartTotalAmount",
     }),
   },
   filters: { numberFormat },

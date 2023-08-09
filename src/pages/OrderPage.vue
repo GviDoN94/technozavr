@@ -26,7 +26,7 @@
       </ul>
 
       <h1 class="content__title">Корзина</h1>
-      <span class="content__info"> 3 товара </span>
+      <span class="content__info"> {{ totalAmount }} товара </span>
     </div>
 
     <section class="cart">
@@ -71,7 +71,7 @@
             />
           </div>
 
-          <div class="cart__options">
+          <!-- <div class="cart__options">
             <h3 class="cart__title">Доставка</h3>
             <ul class="cart__options options">
               <li class="options__item">
@@ -126,17 +126,22 @@
                 </label>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
 
         <div class="cart__block">
           <ul class="cart__orders">
-            <li class="cart__order">
-              <h3>Смартфон Xiaomi Redmi Note 7 Pro 6/128GB</h3>
-              <b>18 990 ₽</b>
-              <span>Артикул: 150030</span>
+            <li
+              class="cart__order"
+              v-for="item in products"
+              :key="item.productId"
+            >
+              <h3>{{ item.product.title }}</h3>
+              <b>{{ item.amount }} шт</b>
+              <span>Артикул: {{ item.product.id }}</span>
+              <b>{{ (item.product.price * item.amount) | numberFormat }} ₽</b>
             </li>
-            <li class="cart__order">
+            <!-- <li class="cart__order">
               <h3>Гироскутер Razor Hovertrax 2.0ii</h3>
               <b>4 990 ₽</b>
               <span>Артикул: 150030</span>
@@ -145,12 +150,15 @@
               <h3>Электрический дрифт-карт Razor Lil’ Crazy</h3>
               <b>8 990 ₽</b>
               <span>Артикул: 150030</span>
-            </li>
+            </li> -->
           </ul>
 
           <div class="cart__total">
-            <p>Доставка: <b>500 ₽</b></p>
-            <p>Итого: <b>3</b> товара на сумму <b>37 970 ₽</b></p>
+            <!-- <p>Доставка: <b>500 ₽</b></p> -->
+            <p>
+              Итого: <b>{{ totalAmount }}</b> товара на сумму
+              <b>{{ totalPrice | numberFormat }} ₽</b>
+            </p>
           </div>
 
           <button class="cart__button button button--primery" type="submit">
@@ -172,6 +180,8 @@
 <script>
 import BaseFormText from "@/components/BaseFormText.vue";
 import BaseFormTextarea from "@/components/BaseFormTextarea.vue";
+import { mapGetters } from "vuex";
+import numberFormat from "@/helpers/numberFormat";
 
 export default {
   components: { BaseFormText, BaseFormTextarea },
@@ -181,5 +191,13 @@ export default {
       formError: {},
     };
   },
+  computed: {
+    ...mapGetters({
+      products: "cartDetailProducts",
+      totalPrice: "cartTotalPrice",
+      totalAmount: "cartTotalAmount",
+    }),
+  },
+  filters: { numberFormat },
 };
 </script>
