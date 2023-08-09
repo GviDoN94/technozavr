@@ -1,5 +1,11 @@
 <template>
-  <main class="content container">
+  <main class="content container" v-if="$store.state.cartLoading">
+    <LoadingSpinner />
+  </main>
+  <main class="content container" v-else-if="$store.state.cartLoadingFailed">
+    Не удалось загрузить товар
+  </main>
+  <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -53,9 +59,10 @@
 import numberFormat from "@/helpers/numberFormat";
 import { mapGetters } from "vuex";
 import CartItem from "@/components/CartItem.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
-  components: { CartItem },
+  components: { CartItem, LoadingSpinner },
   computed: {
     ...mapGetters({
       products: "cartDetailProducts",

@@ -10,6 +10,8 @@ export default new Vuex.Store({
     cartProducts: [],
     userAccessKey: null,
     cartProductsData: [],
+    cartLoading: false,
+    cartLoadingFailed: false,
   },
   mutations: {
     updateCartProductAmount(state, { productId, amount }) {
@@ -34,6 +36,12 @@ export default new Vuex.Store({
           amount: item.quantity,
         };
       });
+    },
+    setCartLoading(state, isLoading) {
+      state.cartLoading = isLoading;
+    },
+    setCartLoadingFailed(state, hasFailed) {
+      state.cartLoadingFailed = hasFailed;
     },
   },
   getters: {
@@ -60,6 +68,9 @@ export default new Vuex.Store({
   },
   actions: {
     loadCart(context) {
+      context.commit("setCartLoading", true);
+      context.commit("setCartLoadingFailed", false);
+
       return axios
         .get(`${API_BASE_URL}/api/baskets`, {
           params: {
@@ -73,7 +84,12 @@ export default new Vuex.Store({
           }
           context.commit("updateCartProductsData", response.data.items);
           context.commit("syncCartProducts");
-        });
+        })
+        .catch((error) => {
+          context.commit("setCartLoadingFailed", true);
+          console.log(error);
+        })
+        .finally(() => context.commit("setCartLoading", false));
     },
     addProductToCart(context, { productId, amount }) {
       return axios
