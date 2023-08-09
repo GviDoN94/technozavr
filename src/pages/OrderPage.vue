@@ -145,20 +145,9 @@
               <span>Артикул: {{ item.product.id }}</span>
               <b>{{ (item.product.price * item.amount) | numberFormat }} ₽</b>
             </li>
-            <!-- <li class="cart__order">
-              <h3>Гироскутер Razor Hovertrax 2.0ii</h3>
-              <b>4 990 ₽</b>
-              <span>Артикул: 150030</span>
-            </li>
-            <li class="cart__order">
-              <h3>Электрический дрифт-карт Razor Lil’ Crazy</h3>
-              <b>8 990 ₽</b>
-              <span>Артикул: 150030</span>
-            </li> -->
           </ul>
 
           <div class="cart__total">
-            <!-- <p>Доставка: <b>500 ₽</b></p> -->
             <p>
               Итого: <b>{{ totalAmount }}</b> товара на сумму
               <b>{{ totalPrice | numberFormat }} ₽</b>
@@ -169,6 +158,89 @@
             Оформить заказ
           </button>
         </div>
+        <svg
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.0"
+          width="20px"
+          height="20px"
+          viewBox="0 0 128 128"
+          xml:space="preserve"
+          style="justify-self: center"
+          v-if="formSending"
+        >
+          <rect x="0" y="0" width="100%" height="100%" fill="#FFFFFF" />
+          <g>
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#000000"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#e5e5e5"
+              transform="rotate(30 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#e5e5e5"
+              transform="rotate(60 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#e5e5e5"
+              transform="rotate(90 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#cecece"
+              transform="rotate(120 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#b7b7b7"
+              transform="rotate(150 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#9f9f9f"
+              transform="rotate(180 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#898989"
+              transform="rotate(210 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#727272"
+              transform="rotate(240 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#5c5c5c"
+              transform="rotate(270 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#444444"
+              transform="rotate(300 64 64)"
+            />
+            <path
+              d="M97.63 8.23a7.38 7.38 0 0 1 2.7 10.07L89.2 37.57a7.38 7.38 0 1 1-12.77-7.37l11.12-19.27a7.38 7.38 0 0 1 10.08-2.7z"
+              fill="#2e2e2e"
+              transform="rotate(330 64 64)"
+            />
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              values="0 64 64;30 64 64;60 64 64;90 64 64;120 64 64;150 64 64;180 64 64;210 64 64;240 64 64;270 64 64;300 64 64;330 64 64"
+              calcMode="discrete"
+              dur="720ms"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </g>
+        </svg>
         <div class="cart__error form__error-block" v-if="formErrorMessage">
           <h4>Заявка не отправлена!</h4>
           <p>{{ formErrorMessage }}</p>
@@ -181,7 +253,7 @@
 <script>
 import BaseFormText from "@/components/BaseFormText.vue";
 import BaseFormTextarea from "@/components/BaseFormTextarea.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import numberFormat from "@/helpers/numberFormat";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
@@ -193,6 +265,7 @@ export default {
       formData: {},
       formError: {},
       formErrorMessage: "",
+      formSending: false,
     };
   },
   computed: {
@@ -204,9 +277,12 @@ export default {
   },
   filters: { numberFormat },
   methods: {
+    ...mapMutations(["resetCart", "updateOrderInfo"]),
+
     order() {
       this.formError = {};
       this.formErrorMessage = "";
+      this.formSending = true;
 
       axios
         .post(
@@ -221,8 +297,8 @@ export default {
           }
         )
         .then((response) => {
-          this.$store.commit("resetCart");
-          this.$store.commit("updateOrderInfo", response.data);
+          this.resetCart();
+          this.updateOrderInfo(response.data);
           this.$router.push({
             name: "orderInfo",
             params: { id: response.data.id },
@@ -231,7 +307,8 @@ export default {
         .catch((error) => {
           this.formError = error.response.data.error.request || {};
           this.formErrorMessage = error.response.data.error.message;
-        });
+        })
+        .finally(() => (this.formSending = false));
     },
   },
 };
