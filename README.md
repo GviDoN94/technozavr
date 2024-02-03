@@ -1,4 +1,4 @@
-# You can watch it [here](https://technozavrrr.gvidon94.ru/)
+# You can look at it [here](https://technozavrrr.gvidon94.ru/)
 
 ## Project setup
 
